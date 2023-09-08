@@ -5,9 +5,21 @@ let url = "https://pokeapi.co/api/v2/pokemon/"
 
 for (let i = 1; i <= 151; i++){
     fetch(url + i)
-        .then((response) => response.json())
-        .then(data => mostrarPokemon (data))
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud a ${url + i}`);
+            }
+            return response.json();
+        })
+        .then(data => mostrarPokemon(data))
+        .catch(error => {
+            console.error(error);
+        })
+        .finally(() =>{
+            
+        })
 }
+
 
 function mostrarPokemon(data){
 
